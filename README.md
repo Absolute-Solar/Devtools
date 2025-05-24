@@ -1,132 +1,87 @@
 # CryptoSun-Devtools
-scripts for devs to interact with your contracts or localnet. CryptoSun DevTools provides developers with everything needed to test, debug, and interact with the CryptoSun protocol's Solana smart contracts in development environments. These tools simplify local development workflows and enable rapid iteration when building on the CryptoSun ecosystem.
 
-# Features
-* Local Environment Setup: Scripts to quickly configure a Solana localnet with CryptoSun contracts
-* Contract Interaction: CLI tools to call and test contract functions
-* Test Data Generation: Utilities to generate realistic test data for the DePIN system
-* Transaction Simulation: Tools to simulate complex transaction sequences
-* Debugging Utilities: Helpers for tracing and debugging contract execution
-* Migration Scripts: Tools for upgrading between contract versions in development
+The Absolute Solar Devtools repository provides a collection of utilities, scripts, and tools that complement the Absolute Solar SDK. These tools are designed to streamline development, testing, and deployment processes for applications interacting with the CryptoSun token (CSN) and the Absolute Solar ecosystem on the Solana blockchain.
+While the SDK offers core functionality for managing CSN, staking, and (future) governance and energy trading, this devtools repo includes supplementary tools such as:
+
+1.) Scripts for setting up local Solana test environments. <br>
+2.) Utilities for deploying and managing smart contracts. <br>
+3.) Tools for monitoring blockchain activity and energy data. <br>
+4.) Testing frameworks and mock data generators.
+
+These tools are not essential for basic SDK usage but provide significant value for developers looking to optimize their workflows, test thoroughly, or automate repetitive tasks.
+
+# Tools Included
+
+1.) Local Testnet Setup: Scripts to quickly spin up a local Solana testnet for development and testing. <br>
+2.) Smart Contract Deployment: Utilities to deploy and manage Absolute Solar's Rust-based smart contracts. <br>
+3.) Monitoring Tools: Scripts to monitor blockchain activity, staking rewards, and energy production data. <br>
+4.) Testing Utilities: Mock data generators and testing frameworks to simulate real-world scenarios. <br>
+5.) Energy Data Simulators: Tools to simulate solar energy production and consumption for testing energy trading features.
 
 # Installation
+To use the tools in this repository, follow these steps:
 
-    bash
-    # Clone the repository
-    git clone https://github.com/cryptosun/cryptosun-devtools.git
-    cd cryptosun-devtools
-    
-    # Install dependencies
-    yarn install
+### 1.) Clone the Repository:
 
-    # Build the tools
-    yarn build
+    git clone https://github.com/AbsoluteSolarCrypto/absolute-solar-devtools.git
+    cd absolute-solar-devtools
 
-# Quick Start
 
-    # Start a local Solana validator with CryptoSun programs deployed
-    yarn start:localnet
+### 2.) Install Dependencies:
 
-    # In a new terminal, initialize test environment with sample data
-    yarn init:testdata
+1.) Ensure you have Rust and Cargo installed. <br>
+2.) Install Solana CLI Tools. <br>
+3.) Run cargo build to compile the tools.
 
-    # Interact with the token contract
-    yarn run:token-script --action transfer --amount 100 --to <RECIPIENT_ADDRESS>
+### 3.) Configure Environment:
 
-# Scripts
-<h2>Setup Scripts</h2>
-* setup-localnet.sh - Configures and starts a local Solana validator with CryptoSun programs
-* reset-localnet.sh - Resets the local validator state
-* setup-testnet.sh  - Deploys programs to Solana testnet for integration testing
+Set up environment variables as needed (e.g., SOLANA_RPC_URL for connecting to a specific Solana network).
 
-<h2>Contract Interaction Scripts</h2>
-* token-cli.js - Interact with the CSN token program (transfer, mint, burn)
-* staking-cli.js - Manage staking operations (stake, unstake, claim rewards)
-* energy-marketplace-cli.js - Simulate energy trading on the marketplace
-* governance-cli.js - Create and vote on governance proposals
 
-<h2>Utility Scripts</h2>
-* generate-keypairs.js - Create and manage Solana keypairs for testing
-* airdrop.js - Airdrop SOL and CSN tokens to test accounts
-* simulate-energy-production.js - Generate simulated energy production data
-* transaction-explorer.js - View detailed information about transactions
+# Usage
+Local Testnet Setup
+To set up a local Solana testnet:
 
-# Environment Configuration
-<h2>Create a .env file in the project root:</h2>
+    ./scripts/setup_testnet.sh
 
-    # Network settings
-    SOLANA_RPC_URL=http://localhost:8899
-    NETWORK=localnet
+This script initializes a local validator and configures it for development.
 
-    # Contract addresses (only needed for testnet/devnet)
-    TOKEN_PROGRAM_ID=
-    STAKING_PROGRAM_ID=
-    ENERGY_ORACLE_PROGRAM_ID=
+### Smart Contract Deployment
+To deploy a smart contract:
 
-    # Development settings
-    LOG_LEVEL=debug
+    cargo run --bin deploy_contract -- --contract-path /path/to/contract.so --keypair /path/to/keypair.json
 
-# Common Workflows
-<h2>Setting up a Development Environment</h2>
-    
-    # Start from a clean state
-    ./scripts/reset-localnet.sh
+Replace /path/to/contract.so with the path to your compiled contract and /path/to/keypair.json with your Solana keypair.
 
-    # Deploy contracts and initialize state
-    ./scripts/setup-localnet.sh
+### Monitoring Tools
+To monitor staking rewards:
 
-    # Generate test keypairs
-    node scripts/generate-keypairs.js --count 5
+    cargo run --bin monitor_staking -- --wallet <YOUR_WALLET_ADDRESS>
 
-    # Airdrop tokens to test accounts
-    node scripts/airdrop.js --accounts test-accounts.json
+This tool fetches and displays real-time staking reward data for the specified wallet.
 
-<h2>Simulating</h2>
+### Testing Utilities
+To generate mock energy data for testing:
 
-    # Generate sample energy production data
-    node scripts/simulate-energy-production.js --days 7 --units 10
+    cargo run --bin generate_mock_data -- --output mock_energy_data.json
 
-    # Register simulated mining hardware
-    node scripts/mining-registry-cli.js --action register --count 5
-
-    # Process simulated mining rewards
-    node scripts/process-mining-rewards.js --cycle-days 1
-
-# Debugging
-<h2>Transaction Inspection</h2>
-
-    # View detailed transaction information
-    node scripts/transaction-explorer.js --signature <TRANSACTION_SIGNATURE>
-
-# Contract Logs
-
-    # Stream program logs
-    solana logs --url localhost:8899 <PROGRAM_ID>
+This creates a JSON file with simulated energy production and consumption data.
 
 # Contributing
-We welcome contributions to improve these development tools! Please check our <a>Contributing Guidelines</a> before submitting pull requests.
+We welcome contributions to the Absolute Solar Devtools! To contribute:
 
-# Development Workflow
+1.) Fork the Repository: Create a personal fork of this repo. <br>
+2.) Create a Branch: Work on a new feature or bug fix in a dedicated branch. <br>
+3.) Submit a Pull Request: Once ready, submit a PR to the main repository.
 
-    Fork the repository
-    Create your feature branch (git checkout -b feature/new-script)
-    Commit your changes with descriptive commit messages
-    Push to your branch
-    Open a Pull Request
-
-# Troubleshooting
-<h2>Common Issues</h2>
-
-    RPC Connection Errors: Ensure your local validator is running with solana-test-validator --log
-    Program Loading Failures: Check that program IDs match in your environment configuration
-    Transaction Simulation Errors: Verify account permissions and token balances
-
-<h2>Getting Help</h2>
-
-If you encounter issues not covered here, please:
-  Check the Issues section for similar problems
-  Join our Discord developer channel
+Please review our Contributing Guidelines and Code of Conduct before contributing.
 
 # License
-This project is licensed under the Apache License 2.0 - see the <a>LICENSE</a> file for details.
+This repository is licensed under the MIT License.
+
+# Support
+For questions or assistance, contact us at nick@solarcrypto.ca or visit solarcrypto.ca.
+
+This devtools repository is designed to evolve alongside the Absolute Solar ecosystem. Watch this repo for updates on new tools and utilities!
+
 
