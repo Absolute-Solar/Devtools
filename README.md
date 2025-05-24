@@ -23,7 +23,7 @@ To use the tools in this repository, follow these steps:
 
 ### 1.) Clone the Repository:
 
-    git clone https://github.com/AbsoluteSolarCrypto/absolute-solar-devtools.git
+    git clone https://github.com/Absolute-Solar/Devtools.git
     cd absolute-solar-devtools
 
 
