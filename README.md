@@ -74,7 +74,7 @@ We welcome contributions to the Absolute Solar Devtools! To contribute:
 2.) Create a Branch: Work on a new feature or bug fix in a dedicated branch. <br>
 3.) Submit a Pull Request: Once ready, submit a PR to the main repository.
 
-Please review our Contributing Guidelines and Code of Conduct before contributing.
+Please review our [Contributing Guidelines](CONTRIBUTING.md) and Code of Conduct before contributing.
 
 # License
 This repository is licensed under the MIT License.
